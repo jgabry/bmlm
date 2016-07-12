@@ -4,4 +4,5 @@
 .Ruserdata
 inst/doc
 data-raw/
-# vignettes/fit.rda
+*_cache/
+*_files/

@@ -4,5 +4,13 @@ navbar:
   left:
     - text: "Tutorial"
       href: index.html
-    - text: "About"
-      href: about.html
+output:
+  html_document:
+    theme: cosmo
+    highlight: kate
+    toc: true
+    toc_float: true
+    fig_caption: true
+    number_section: false
+    self_contained: true
+output_dir: "."
