@@ -1,0 +1,8 @@
+name: "bmlm"
+navbar:
+  title: "bmlm"
+  left:
+    - text: "Tutorial"
+      href: index.html
+    - text: "About"
+      href: about.html
