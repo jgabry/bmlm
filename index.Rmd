@@ -89,7 +89,7 @@ fit <- mlm(d = BLch9,
            x = "fwkstrs_cw",
            m = "fwkdis_cw",
            y = "freldis_cw",
-           iter = 3000)
+           iter = 2000)
 ```
 
 The main arguments to `mlm()` are `d` (a `data.frame`), which here was set to `BLch9`. The user also needs to specify which columns contain the variables needed for the mediation model, unless they are already named `id`, `x`, `m`, and `y`:
@@ -99,7 +99,7 @@ The main arguments to `mlm()` are `d` (a `data.frame`), which here was set to `B
 * `m` is the mediator variable.
 * `y` is the outcome variable.
 
-There are various additional arguments to the above command. Most notably, the `iter = 3000` specified the number of samples to draw from the posterior distribution, for each MCMC chain. The default is to use 4 chains. Further, Stan's MCMC algorithms use a portion of the samples as warmup to adjust various underlying parameters. The default of one half was used for this example. 
+There are various additional arguments to the above command. Most notably, the `iter = 2000` specified the number of samples to draw from the posterior distribution, for each MCMC chain. The default is to use 4 chains. Further, Stan's MCMC algorithms use a portion of the samples as warmup to adjust various underlying parameters. The default of one half was used for this example. 
 
 Stan's MCMC procedures are very efficient, but estimating the model with large datasets will take a while. This example model (2100 rows of data) takes about 45 seconds on a desktop Mac (8GB RAM, 4ghz Intel i7).
 
