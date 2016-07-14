@@ -21,6 +21,7 @@ opts_chunk$set(message = F, warning = F)
 
 1. Please ensure you have the [latest version of R](https://cran.r-project.org/) installed.
 2. This package depends on [Stan](http://mc-stan.org/). Please see [here](http://mc-stan.org/interfaces/rstan.html) for how to install the RStan interface.
+    * [Our RStan installation instructions](install.html) for Windows (7)
 3. Currently, bmlm is only available on GitHub, and therefore requires [devtools](https://cran.r-project.org/web/packages/devtools/index.html) for installation. If you don't have the devtools package installed in R, install it by running the following code in the R console:
 
 ```{r, eval = F}

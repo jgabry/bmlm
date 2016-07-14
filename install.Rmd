@@ -1,0 +1,48 @@
+---
+title: "Installing Rstan"
+author: "Matti Vuorre"
+date: "`r Sys.Date()`"
+bibliography: common/bibliography.bib
+csl: common/apa.csl
+---
+
+```{r, echo = F, message=FALSE, results='hide'}
+library(knitr)
+opts_chunk$set(message = F, warning = F)
+```
+
+Installing RStan is like building a house of cards; one wrong move and its all a big mess. The official [instructions on how to install RStan](http://mc-stan.org/interfaces/rstan.html) are platform-dependent, and must be followed exactly, and in the given sequence.
+
+Here's a tried and tested sequence of events required to install RStan on a Windows computer. 
+
+1. Install the latest version of [R from CRAN](https://cran.r-project.org/bin/windows/)
+2. Install the latest stable version of [RStudio](https://www.rstudio.com/products/rstudio/download/)
+3. Install [RTools33](https://cran.r-project.org/bin/windows/Rtools/) 
+    * During installation, the installer will ask you if you want to "Edit the system PATH." Make sure that the checkbox under this statement is checked.
+4. Copy-paste and execute the following in the R console
+    
+```r
+dotR <- file.path(Sys.getenv("HOME"), ".R")
+if (!file.exists(dotR)) dir.create(dotR)
+M <- file.path(dotR, "Makevars")
+if (!file.exists(M)) file.create(M)
+cat("\nCXXFLAGS=-O3 -mtune=native -march=native -Wno-unused-variable -Wno-unused-function", 
+    file = M, sep = "\n", append = TRUE)
+```
+
+5. Copy-paste and execute the following code in the R console
+    
+```r
+cat('Sys.setenv(BINPREF = "C:/Rtools/mingw_$(WIN)/bin/")',
+    file = file.path(Sys.getenv("HOME"), ".Rprofile"), 
+    sep = "\n", append = TRUE)
+```
+
+6. Install RStan by executing the following code in the R console:
+
+```r
+install.packages('rstan', repos = 'https://cloud.r-project.org/', dependencies = TRUE)
+```
+
+7. Restart R
+

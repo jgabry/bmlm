@@ -4,6 +4,8 @@ navbar:
   left:
     - text: "Tutorial"
       href: index.html
+    - text: "Installing"
+      href: install.html
     - text: "Model details"
       href: model.html
   right:
