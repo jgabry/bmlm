@@ -1,0 +1,65 @@
+---
+title: "bmlm: Model details"
+author: "Matti Vuorre"
+date: "`r Sys.Date()`"
+bibliography: common/bibliography.bib
+csl: common/apa.csl
+output:
+  html_document:
+    theme: cosmo
+    highlight: kate
+    toc: false
+---
+
+```{r, echo = F, message=FALSE, results='hide'}
+library(knitr)
+opts_chunk$set(message = F, warning = F)
+```
+
+The specification for the multilevel mediation model is as follows:
+
+\usepackage{amsmath}
+\begin{equation}
+\begin{aligned}
+Y_{i} &\sim Normal(\mu_{Yi}, \sigma_Y)
+\\
+\mu_{Yi} &= (D_Y + d_{Y[id]}) + (C' + c'_{[id]}) X_{i} + (B + b_{[id]}) M_{i}
+\\
+M_{ij} &\sim Normal(\mu_{Mi}, \sigma_M)
+\\
+\mu_{Mi} &= (D_M + d_{M[id]}) + (A + a_{[id]}) X_{ij}
+\\
+\begin{pmatrix} 
+{c'_{[id]}}\\{b_{[id]}}\\{a_{[id]}}\\{d_{Y[id]}}\\{d_{M[id]}} 
+\end{pmatrix} 
+&\sim MVNorm
+\begin{pmatrix} 0, \Sigma\end {pmatrix}
+\end{aligned}
+\end{equation}
+
+
+Where $\Sigma$ is a covariance matrix of the participant-level varying effects, constructed from a correlation matrix $\Omega$ and vector of standard deviations $\tau$. These operations are optimized by Cholesky factorization to speed up the MCMC sampling procedures [@stan_development_team_stan:_2016, section 6.12].
+
+The priors are defined as follows (text annotation indicates that users can set these by giving the named argument to `mlm()`):
+
+\begin{equation}
+\begin{aligned}
+D_Y, D_M &\sim Normal(0, intrcpt\_scale)
+\\
+A, B, C' &\sim Normal(0, prior\_scale)
+\\
+\tau &\sim Cauchy^+(0, tau\_scale)
+\\
+\Omega &\sim LKJcorr(2)
+\end{aligned}
+\end{equation}
+
+The average-level total effect of X on Y is given by [@kenny_lower_2003]:
+
+\begin{equation}
+\begin{aligned}
+C &= C' + AB + \Sigma_{a_{j}b_{j}}
+\end{aligned}
+\end{equation}
+
+# References 

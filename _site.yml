@@ -4,6 +4,12 @@ navbar:
   left:
     - text: "Tutorial"
       href: index.html
+    - text: "Model details"
+      href: model.html
+  right:
+    - icon: fa-github fa-lg
+      text: "Source"
+      href: https://github.com/mvuorre/bmlm
 output:
   html_document:
     theme: cosmo
