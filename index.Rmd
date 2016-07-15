@@ -186,12 +186,24 @@ mlm_pars_plot(fit, pars = "u_cp", type = "coef", level = .75) +
           axis.ticks.y = element_blank())
 ```
 
+Path diagrams can also be plotted for specific individuals:
+
+```{r indiv-path-plots, echo = -6}
+par(mfrow = c(2, 2))
+mlm_path_plot(fit, id = 1)
+mlm_path_plot(fit, id = 25)
+mlm_path_plot(fit, id = 50)
+mlm_path_plot(fit, id = 75)
+par(mfrow = c(1, 1))
+```
+
 ## Avoid copy-pasting
 
 Copy-pasting results from the R console to manuscripts and reports is error prone. Users may export summary tables automatically to a Word document by using `tab2doc()`. Note that this function requires the [__ReporteRs__ package](https://cran.r-project.org/web/packages/ReporteRs/index.html) [@gohel_reporters:_2016].
 
-```{r}
+```{r, echo = -2, message = F, warning = F}
 tab2doc(mlm_summary(fit))
+file.remove("Table.docx")
 ```
 
 This function saves a word document with a table of the model's results. Users may further edit the table's aesthetics manually in Word.
