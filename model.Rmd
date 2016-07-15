@@ -62,4 +62,10 @@ C &= C' + AB + \Sigma_{a_{j}b_{j}}
 \end{aligned}
 \end{equation}
 
+# Stan code
+
+```{r echo = F, comment=""}
+cat(readLines(system.file("stan/bmlm.stan", package = "bmlm")), sep = "\n")
+```
+
 # References 
