@@ -78,7 +78,7 @@ The `..._cw` variables now contain isolated within-person ("subject-mean deviate
 
 ## Fit model
 
-To estimate the multilevel mediation model, run `mlm()` and save its output to an object. Here we'll call it `fit`. You can also ask Stan to run multiple MCMC chains in parallel (if supported by your computer), as shown by the two first lines below.
+To estimate the multilevel mediation model, run `mlm()` and save its output to an object. Here we'll call it `fit`. You can also ask Stan to run multiple MCMC chains in parallel (if supported by your computer), and to save the intermediate object for re-use within a session, as shown by the two first lines below.
 
 ```{r, eval = T, cache = TRUE}
 rstan_options(auto_write = TRUE)  # These two lines are optional
