@@ -57,7 +57,7 @@ head(BLch9)
 ```{r, eval = T, echo = F}
 # Hack to show tabulated output instead of raw print
 data(BLch9)
-kable(head(BLch9), digits = 2)
+knitr::kable(head(BLch9), digits = 2)
 ```
 
 ## Data preprocessing
@@ -117,7 +117,7 @@ mlm_summary(fit)
 
 ```{r, eval = T, echo = F}
 # Hack to show tabulated output instead of raw print
-kable(mlm_summary(fit))
+knitr::kable(mlm_summary(fit))
 ```
 
 `mlm_summary()` returns, for each parameter, the following information:
