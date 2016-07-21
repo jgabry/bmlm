@@ -34,6 +34,9 @@ Then proceed to install bmlm:
 
 ```{r, eval = F}
 devtools::install_github("mvuorre/bmlm")
+
+# Install development branch from github
+install_github("stan-dev/rstanarm", args = "--preclean")
 ```
 
 If something goes wrong during the installation process, you will receive a notice usually asking you to install additional packages. If you are unable to resolve the problems, please contact me.
