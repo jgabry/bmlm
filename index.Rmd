@@ -13,7 +13,7 @@ opts_chunk$set(message = F, warning = F)
 
 # Introduction
 
-[__bmlm__](https://github.com/mvuorre/bmlm) is an R package that allows easy estimation of multilevel mediation models. It relies heavily on the [RStan](http://mc-stan.org/interfaces/rstan.html) interface to the powerful  [Stan](http://mc-stan.org/) Bayesian inference engine. Users can estimate, summarize and plot a multilevel mediation model easily with the convenient functions provided with __bmlm__. This document explains how to install __bmlm__ and its required components, and then walks through an example of how to use it in practice.
+[__bmlm__](https://github.com/mvuorre/bmlm) is an R package that allows easy estimation of multilevel mediation models. __bmlm__ uses the [RStan](http://mc-stan.org/interfaces/rstan.html) interface to the powerful  [Stan](http://mc-stan.org/) Bayesian inference engine. Users can estimate, summarize and plot a multilevel mediation model easily with the convenient functions provided with __bmlm__. This document explains how to install __bmlm__ and its required components, and then walks through an example of how to use it in practice.
 
 # Installing __bmlm__
 
@@ -21,28 +21,19 @@ opts_chunk$set(message = F, warning = F)
 
 1. Please ensure you have the [latest version of R](https://cran.r-project.org/) installed.
 2. This package depends on [Stan](http://mc-stan.org/). Please see [here](http://mc-stan.org/interfaces/rstan.html) for how to install the RStan interface.
-    * [Our RStan installation instructions](install.html) for Windows (7)
-3. Currently, bmlm is only available on GitHub, and therefore requires [devtools](https://cran.r-project.org/web/packages/devtools/index.html) for installation. If you don't have the devtools package installed in R, install it by running the following code in the R console:
-
-```{r, eval = F}
-install.packages("devtools")
-```
 
 ## Installing bmlm
 
-Then proceed to install bmlm:
+The latest version of __bmlm__ is available on [GitHub](https://github.com/mvuorre/bmlm). To install R packages from GitHub, please install the `devtools` package first, as shown by the first line below:
 
 ```{r, eval = F}
-devtools::install_github("mvuorre/bmlm")
-
-# Install development branch from github
-install_github("stan-dev/rstanarm", args = "--preclean")
+install.packages("devtools")  # Installing from GitHub requires this package.
+devtools::install_github("mvuorre/bmlm", args = "--preclean")
 ```
 
-If something goes wrong during the installation process, you will receive a notice usually asking you to install additional packages. If you are unable to resolve the problems, please contact me.
+If something goes wrong during the installation process, you will receive a notice usually asking you to install additional packages. If you are unable to resolve the problems, please contact me or open an issue on [GitHub](https://github.com/mvuorre/bmlm/issues).
 
 # Example
-
 
 After installing the required software, load the __bmlm__ package to your current R workspace:
 
@@ -81,10 +72,9 @@ The `..._cw` variables now contain isolated within-person ("subject-mean deviate
 
 ## Fit model
 
-To estimate the multilevel mediation model, run `mlm()` and save its output to an object. Here we'll call it `fit`. You can also ask Stan to run multiple MCMC chains in parallel (if supported by your computer), and to save the intermediate object for re-use within a session, as shown by the two first lines below.
+To estimate the multilevel mediation model, run `mlm()` and save its output to an object. Here we'll call it `fit`. You can also ask Stan to run multiple MCMC chains in parallel (if supported by your computer), as shown by the first line below.
 
 ```{r, eval = T, cache = TRUE}
-rstan_options(auto_write = TRUE)  # These two lines are optional
 options(mc.cores = parallel::detectCores()) 
 
 fit <- mlm(d = BLch9, 
@@ -183,6 +173,7 @@ Users can investigate person-specific effects by modifying the input to the func
 It is also possible to investigate person-specific parameters. These exist with the same name as the average-level parameters, but have "u_" appended to them. 
 
 ```{r, fig.width = 4, fig.height = 5, fig.cap = "Participant-specific c' path values with 75% Credible Intervals."}
+library(ggplot2)
 head(mlm_summary(fit, pars = "u_c"))
 mlm_pars_plot(fit, pars = "u_cp", type = "coef", level = .75) + 
     theme(axis.text.y = element_blank(),
@@ -227,7 +218,8 @@ The functions contained in __bmlm__ have various options available for the user.
 Users can also input any valid `stan()` arguments to `mlm()`; see `?stan` for details. The fitted object from `mlm()` is a valid `Stanfit` object, so all `Stanfit` methods are available as well. For example, it is important to assess the performance of Stan's MCMC algorithms after estimating a model by, for example, inspecting traceplots for convergence problems:
 
 ```{r, fig.width = 6}
-pars <- c("a", "ab", "cp", "c", "corrab")
+library(rstan)
+pars <- c("ab", "cp", "c", "corrab")
 traceplot(fit, pars = pars)
 ```
 

@@ -11,7 +11,7 @@
 
 <meta name="author" content="Matti Vuorre" />
 
-<meta name="date" content="2016-07-15" />
+<meta name="date" content="2016-07-22" />
 
 <title>bmlm: Multilevel Mediation Modeling with Stan</title>
 
@@ -330,14 +330,14 @@ div.tocify {
 
 <h1 class="title toc-ignore">bmlm: Multilevel Mediation Modeling with Stan</h1>
 <h4 class="author"><em>Matti Vuorre</em></h4>
-<h4 class="date"><em>2016-07-15</em></h4>
+<h4 class="date"><em>2016-07-22</em></h4>
 
 </div>
 
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p><a href="https://github.com/mvuorre/bmlm"><strong>bmlm</strong></a> is an R package that allows easy estimation of multilevel mediation models. It relies heavily on the <a href="http://mc-stan.org/interfaces/rstan.html">RStan</a> interface to the powerful <a href="http://mc-stan.org/">Stan</a> Bayesian inference engine. Users can estimate, summarize and plot a multilevel mediation model easily with the convenient functions provided with <strong>bmlm</strong>. This document explains how to install <strong>bmlm</strong> and its required components, and then walks through an example of how to use it in practice.</p>
+<p><a href="https://github.com/mvuorre/bmlm"><strong>bmlm</strong></a> is an R package that allows easy estimation of multilevel mediation models. <strong>bmlm</strong> uses the <a href="http://mc-stan.org/interfaces/rstan.html">RStan</a> interface to the powerful <a href="http://mc-stan.org/">Stan</a> Bayesian inference engine. Users can estimate, summarize and plot a multilevel mediation model easily with the convenient functions provided with <strong>bmlm</strong>. This document explains how to install <strong>bmlm</strong> and its required components, and then walks through an example of how to use it in practice.</p>
 </div>
 <div id="installing-bmlm" class="section level1">
 <h1>Installing <strong>bmlm</strong></h1>
@@ -345,19 +345,15 @@ div.tocify {
 <h2>Pre-requisites</h2>
 <ol style="list-style-type: decimal">
 <li>Please ensure you have the <a href="https://cran.r-project.org/">latest version of R</a> installed.</li>
-<li>This package depends on <a href="http://mc-stan.org/">Stan</a>. Please see <a href="http://mc-stan.org/interfaces/rstan.html">here</a> for how to install the RStan interface.
-<ul>
-<li><a href="install.html">Our RStan installation instructions</a> for Windows (7)</li>
-</ul></li>
-<li>Currently, bmlm is only available on GitHub, and therefore requires <a href="https://cran.r-project.org/web/packages/devtools/index.html">devtools</a> for installation. If you don’t have the devtools package installed in R, install it by running the following code in the R console:</li>
+<li>This package depends on <a href="http://mc-stan.org/">Stan</a>. Please see <a href="http://mc-stan.org/interfaces/rstan.html">here</a> for how to install the RStan interface.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</code></pre></div>
 </div>
 <div id="installing-bmlm-1" class="section level2">
 <h2>Installing bmlm</h2>
-<p>Then proceed to install bmlm:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">&quot;mvuorre/bmlm&quot;</span>)</code></pre></div>
-<p>If something goes wrong during the installation process, you will receive a notice usually asking you to install additional packages. If you are unable to resolve the problems, please contact me.</p>
+<p>The latest version of <strong>bmlm</strong> is available on <a href="https://github.com/mvuorre/bmlm">GitHub</a>. To install R packages from GitHub, please install the <code>devtools</code> package first, as shown by the first line below:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)  <span class="co"># Installing from GitHub requires this package.</span>
+devtools::<span class="kw">install_github</span>(<span class="st">&quot;mvuorre/bmlm&quot;</span>, <span class="dt">args =</span> <span class="st">&quot;--preclean&quot;</span>)</code></pre></div>
+<p>If something goes wrong during the installation process, you will receive a notice usually asking you to install additional packages. If you are unable to resolve the problems, please contact me or open an issue on <a href="https://github.com/mvuorre/bmlm/issues">GitHub</a>.</p>
 </div>
 </div>
 <div id="example" class="section level1">
@@ -550,9 +546,8 @@ div.tocify {
 </div>
 <div id="fit-model" class="section level2">
 <h2>Fit model</h2>
-<p>To estimate the multilevel mediation model, run <code>mlm()</code> and save its output to an object. Here we’ll call it <code>fit</code>. You can also ask Stan to run multiple MCMC chains in parallel (if supported by your computer), as shown by the two first lines below.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rstan_options</span>(<span class="dt">auto_write =</span> <span class="ot">TRUE</span>)  <span class="co"># These two lines are optional</span>
-<span class="kw">options</span>(<span class="dt">mc.cores =</span> parallel::<span class="kw">detectCores</span>()) 
+<p>To estimate the multilevel mediation model, run <code>mlm()</code> and save its output to an object. Here we’ll call it <code>fit</code>. You can also ask Stan to run multiple MCMC chains in parallel (if supported by your computer), as shown by the first line below.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">mc.cores =</span> parallel::<span class="kw">detectCores</span>()) 
 
 fit &lt;-<span class="st"> </span><span class="kw">mlm</span>(<span class="dt">d =</span> BLch9, 
            <span class="dt">id =</span> <span class="st">&quot;id&quot;</span>,
@@ -595,12 +590,12 @@ fit &lt;-<span class="st"> </span><span class="kw">mlm</span>(<span class="dt">d
 <tr class="odd">
 <td align="left">a</td>
 <td align="right">0.19</td>
-<td align="right">0.03</td>
+<td align="right">0.04</td>
 <td align="right">0.19</td>
 <td align="right">0.10</td>
 <td align="right">0.28</td>
-<td align="right">1.000</td>
-<td align="right">2577</td>
+<td align="right">1.00000</td>
+<td align="right">1640</td>
 <td align="right">1</td>
 </tr>
 <tr class="even">
@@ -609,9 +604,9 @@ fit &lt;-<span class="st"> </span><span class="kw">mlm</span>(<span class="dt">d
 <td align="right">0.03</td>
 <td align="right">0.15</td>
 <td align="right">0.07</td>
-<td align="right">0.22</td>
-<td align="right">1.000</td>
-<td align="right">2154</td>
+<td align="right">0.23</td>
+<td align="right">1.00000</td>
+<td align="right">1893</td>
 <td align="right">1</td>
 </tr>
 <tr class="odd">
@@ -619,10 +614,10 @@ fit &lt;-<span class="st"> </span><span class="kw">mlm</span>(<span class="dt">d
 <td align="right">0.10</td>
 <td align="right">0.02</td>
 <td align="right">0.10</td>
-<td align="right">0.05</td>
+<td align="right">0.04</td>
 <td align="right">0.16</td>
-<td align="right">1.000</td>
-<td align="right">2945</td>
+<td align="right">1.00000</td>
+<td align="right">4000</td>
 <td align="right">1</td>
 </tr>
 <tr class="even">
@@ -630,10 +625,10 @@ fit &lt;-<span class="st"> </span><span class="kw">mlm</span>(<span class="dt">d
 <td align="right">0.05</td>
 <td align="right">0.01</td>
 <td align="right">0.05</td>
-<td align="right">0.03</td>
-<td align="right">0.10</td>
-<td align="right">1.000</td>
-<td align="right">1704</td>
+<td align="right">0.02</td>
+<td align="right">0.09</td>
+<td align="right">1.00000</td>
+<td align="right">1458</td>
 <td align="right">1</td>
 </tr>
 <tr class="odd">
@@ -642,9 +637,9 @@ fit &lt;-<span class="st"> </span><span class="kw">mlm</span>(<span class="dt">d
 <td align="right">0.03</td>
 <td align="right">0.16</td>
 <td align="right">0.09</td>
-<td align="right">0.22</td>
-<td align="right">1.000</td>
-<td align="right">3025</td>
+<td align="right">0.23</td>
+<td align="right">1.00000</td>
+<td align="right">2582</td>
 <td align="right">1</td>
 </tr>
 <tr class="even">
@@ -653,9 +648,9 @@ fit &lt;-<span class="st"> </span><span class="kw">mlm</span>(<span class="dt">d
 <td align="right">0.08</td>
 <td align="right">0.34</td>
 <td align="right">0.17</td>
-<td align="right">0.58</td>
-<td align="right">1.000</td>
-<td align="right">1875</td>
+<td align="right">0.59</td>
+<td align="right">1.00000</td>
+<td align="right">1806</td>
 <td align="right">1</td>
 </tr>
 <tr class="odd">
@@ -664,20 +659,20 @@ fit &lt;-<span class="st"> </span><span class="kw">mlm</span>(<span class="dt">d
 <td align="right">0.01</td>
 <td align="right">0.03</td>
 <td align="right">0.00</td>
-<td align="right">0.06</td>
-<td align="right">0.998</td>
-<td align="right">1426</td>
+<td align="right">0.05</td>
+<td align="right">0.99775</td>
+<td align="right">1529</td>
 <td align="right">1</td>
 </tr>
 <tr class="even">
 <td align="left">corrab</td>
-<td align="right">0.46</td>
+<td align="right">0.45</td>
 <td align="right">0.15</td>
 <td align="right">0.46</td>
-<td align="right">0.05</td>
-<td align="right">0.79</td>
-<td align="right">0.998</td>
-<td align="right">1544</td>
+<td align="right">0.04</td>
+<td align="right">0.78</td>
+<td align="right">0.99775</td>
+<td align="right">1257</td>
 <td align="right">1</td>
 </tr>
 </tbody>
@@ -701,7 +696,7 @@ fit &lt;-<span class="st"> </span><span class="kw">mlm</span>(<span class="dt">d
               <span class="dt">ylab =</span> <span class="st">&quot;Relationship</span><span class="ch">\n</span><span class="st">dissatisfaction&quot;</span>,
               <span class="dt">edge.color =</span> <span class="ot">NULL</span>)  <span class="co"># Colors edges</span></code></pre></div>
 <div class="figure">
-<img src="index_files/figure-html/unnamed-chunk-12-1.png" alt="Path diagram of the average level mediation model, with numerical summaries of the relevant parameters." width="576" />
+<img src="index_files/figure-html/unnamed-chunk-11-1.png" alt="Path diagram of the average level mediation model, with numerical summaries of the relevant parameters." width="576" />
 <p class="caption">
 Path diagram of the average level mediation model, with numerical summaries of the relevant parameters.
 </p>
@@ -712,7 +707,7 @@ Path diagram of the average level mediation model, with numerical summaries of t
 <span class="kw">mlm_pars_plot</span>(fit, <span class="dt">type =</span> <span class="st">&quot;coefplot&quot;</span>, <span class="dt">level =</span> .<span class="dv">99</span>,
               <span class="dt">p_size =</span> <span class="dv">3</span>)  <span class="co"># Changes size of points</span></code></pre></div>
 <div class="figure">
-<img src="index_files/figure-html/unnamed-chunk-13-1.png" alt="Figure 2. A coefficient plot." width="288" /><img src="index_files/figure-html/unnamed-chunk-13-2.png" alt="Figure 2. A coefficient plot." width="288" />
+<img src="index_files/figure-html/unnamed-chunk-12-1.png" alt="Figure 2. A coefficient plot." width="288" /><img src="index_files/figure-html/unnamed-chunk-12-2.png" alt="Figure 2. A coefficient plot." width="288" />
 <p class="caption">
 Figure 2. A coefficient plot.
 </p>
@@ -720,7 +715,7 @@ Figure 2. A coefficient plot.
 <p>The user can also specify the parameters to show on the plot, as illustrated in the next histograms:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mlm_pars_plot</span>(fit, <span class="dt">type =</span> <span class="st">&quot;hist&quot;</span>, <span class="dt">pars =</span> <span class="kw">c</span>(<span class="st">&quot;ab&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;pme&quot;</span>, <span class="st">&quot;covab&quot;</span>))</code></pre></div>
 <div class="figure">
-<img src="index_files/figure-html/unnamed-chunk-14-1.png" alt="Histograms for a selection of parameters." width="384" />
+<img src="index_files/figure-html/unnamed-chunk-13-1.png" alt="Histograms for a selection of parameters." width="384" />
 <p class="caption">
 Histograms for a selection of parameters.
 </p>
@@ -733,7 +728,7 @@ Histograms for a selection of parameters.
     <span class="st">&quot;Omega[3,1]&quot;</span>, <span class="st">&quot;Omega[3,2]&quot;</span>, <span class="st">&quot;tau[3]&quot;</span>),
     <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">color =</span> <span class="st">&quot;skyblue4&quot;</span>)</code></pre></div>
 <div class="figure">
-<img src="index_files/figure-html/unnamed-chunk-15-1.png" alt="Varying effects standard deviations (tau) and correlations (Omega)." width="480" />
+<img src="index_files/figure-html/unnamed-chunk-14-1.png" alt="Varying effects standard deviations (tau) and correlations (Omega)." width="480" />
 <p class="caption">
 Varying effects standard deviations (tau) and correlations (Omega).
 </p>
@@ -748,19 +743,20 @@ Varying effects standard deviations (tau) and correlations (Omega).
 <div id="person-specific-effects" class="section level2">
 <h2>Person-specific effects</h2>
 <p>It is also possible to investigate person-specific parameters. These exist with the same name as the average-level parameters, but have “u_” appended to them.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">mlm_summary</span>(fit, <span class="dt">pars =</span> <span class="st">&quot;u_c&quot;</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">head</span>(<span class="kw">mlm_summary</span>(fit, <span class="dt">pars =</span> <span class="st">&quot;u_c&quot;</span>))</code></pre></div>
 <pre><code>##   Parameter Mean   SD Median ci_lwr ci_upr   pprob n_eff Rhat
-## 1    u_c[1] 0.12 0.08   0.12  -0.07   0.37 0.94975  4000    1
-## 2    u_c[2] 0.10 0.09   0.10  -0.14   0.35 0.89325  4000    1
-## 3    u_c[3] 0.11 0.08   0.11  -0.09   0.36 0.93475  4000    1
-## 4    u_c[4] 0.37 0.13   0.36   0.10   0.76 1.00000  4000    1
-## 5    u_c[5] 0.09 0.09   0.09  -0.17   0.35 0.85050  4000    1
-## 6    u_c[6] 0.09 0.08   0.09  -0.15   0.34 0.85850  4000    1</code></pre>
+## 1    u_c[1] 0.12 0.08   0.11  -0.08   0.37 0.94225  4000    1
+## 2    u_c[2] 0.10 0.09   0.10  -0.14   0.36 0.88625  4000    1
+## 3    u_c[3] 0.11 0.08   0.11  -0.11   0.37 0.93075  4000    1
+## 4    u_c[4] 0.38 0.13   0.37   0.10   0.74 1.00000  4000    1
+## 5    u_c[5] 0.09 0.10   0.09  -0.20   0.36 0.85250  4000    1
+## 6    u_c[6] 0.09 0.08   0.09  -0.16   0.31 0.85950  4000    1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mlm_pars_plot</span>(fit, <span class="dt">pars =</span> <span class="st">&quot;u_cp&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;coef&quot;</span>, <span class="dt">level =</span> .<span class="dv">75</span>) +<span class="st"> </span>
 <span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.text.y =</span> <span class="kw">element_blank</span>(),
           <span class="dt">axis.ticks.y =</span> <span class="kw">element_blank</span>())</code></pre></div>
 <div class="figure">
-<img src="index_files/figure-html/unnamed-chunk-16-1.png" alt="Participant-specific c' path values with 75% Credible Intervals." width="384" />
+<img src="index_files/figure-html/unnamed-chunk-15-1.png" alt="Participant-specific c' path values with 75% Credible Intervals." width="384" />
 <p class="caption">
 Participant-specific c’ path values with 75% Credible Intervals.
 </p>
@@ -793,9 +789,10 @@ Participant-specific c’ path values with 75% Credible Intervals.
 ?mlm_path_plot
 ?mlm_pars_plot</code></pre></div>
 <p>Users can also input any valid <code>stan()</code> arguments to <code>mlm()</code>; see <code>?stan</code> for details. The fitted object from <code>mlm()</code> is a valid <code>Stanfit</code> object, so all <code>Stanfit</code> methods are available as well. For example, it is important to assess the performance of Stan’s MCMC algorithms after estimating a model by, for example, inspecting traceplots for convergence problems:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;ab&quot;</span>, <span class="st">&quot;cp&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;corrab&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rstan)
+pars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ab&quot;</span>, <span class="st">&quot;cp&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;corrab&quot;</span>)
 <span class="kw">traceplot</span>(fit, <span class="dt">pars =</span> pars)</code></pre></div>
-<p><img src="index_files/figure-html/unnamed-chunk-19-1.png" width="576" /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-18-1.png" width="576" /></p>
 <p>Further modification of the model is possible through modifying the Stan code underlying <code>mlm()</code>. See <a href="model.html">here</a> for further details.</p>
 </div>
 <div id="references" class="section level1 unnumbered">
