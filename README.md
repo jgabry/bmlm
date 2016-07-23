@@ -1,14 +1,8 @@
 # bmlm: An R package for Bayesian MultiLevel Mediation models
 
-## Install
+## Installing bmlm
 
-### Pre-requisites 
-
-Please ensure you have the latest version of R installed.
-
-This package depends on [Stan](http://mc-stan.org/). Please see [here](http://mc-stan.org/interfaces/rstan.html) for how to install the R Stan interface.
-
-### Installing bmlm
+Please ensure you have the [latest version of R](https://cran.r-project.org/) installed.
 
 Currently, bmlm is only available on GitHub, and therefore requires [devtools](https://cran.r-project.org/web/packages/devtools/index.html) for installation. If you don't have the devtools package installed in R, first run this line:
 
@@ -21,6 +15,8 @@ Then proceed to install bmlm:
 ```r
 devtools::install_github("mvuorre/bmlm")
 ```
+
+This package depends on [Stan](http://mc-stan.org/). Please see [here](http://mc-stan.org/interfaces/rstan.html) for how to install the R Stan interface.
 
 ## Example
 

@@ -17,21 +17,21 @@ opts_chunk$set(message = F, warning = F)
 
 # Installing __bmlm__
 
-## Pre-requisites 
+Please ensure you have the [latest version of R](https://cran.r-project.org/) installed.
 
-1. Please ensure you have the [latest version of R](https://cran.r-project.org/) installed.
-2. This package depends on [Stan](http://mc-stan.org/). Please see [here](http://mc-stan.org/interfaces/rstan.html) for how to install the RStan interface.
-
-## Installing bmlm
-
-The latest version of __bmlm__ is available on [GitHub](https://github.com/mvuorre/bmlm). To install R packages from GitHub, please install the `devtools` package first, as shown by the first line below:
+The latest version of __bmlm__ is available on [GitHub](https://github.com/mvuorre/bmlm). To install R packages from GitHub, please install the `devtools` package first, as shown by the first line below. Then install __bmlm__ using devtools:
 
 ```{r, eval = F}
-install.packages("devtools")  # Installing from GitHub requires this package.
+install.packages("devtools")
+# Install from GitHub using the devtools package
 devtools::install_github("mvuorre/bmlm", args = "--preclean")
 ```
 
 If something goes wrong during the installation process, you will receive a notice usually asking you to install additional packages. If you are unable to resolve the problems, please contact me or open an issue on [GitHub](https://github.com/mvuorre/bmlm/issues).
+
+### Note for Windows users
+
+Some Windows users may get an error message during the installation process, asking to install [Rtools33](https://cran.r-project.org/bin/windows/Rtools/). If this happens, install Rtools33, and retry installing __bmlm__. See [here](https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows) if problems persist.
 
 # Example
 
@@ -94,7 +94,7 @@ The main arguments to `mlm()` are `d` (a `data.frame`), which here was set to `B
 
 There are various additional arguments to the above command. Most notably, the `iter = 2000` specified the number of samples to draw from the posterior distribution, for each MCMC chain. The default is to use 4 chains. Further, Stan's MCMC algorithms use a portion of the samples as warmup to adjust various underlying parameters. The default of one half was used for this example. 
 
-Stan's MCMC procedures are very efficient, but estimating the model with large datasets will take a while. This example model (2100 rows of data) takes about 45 seconds on a desktop Mac (8GB RAM, 4ghz Intel i7).
+Stan's MCMC procedures are very efficient, but estimating the model with large datasets will take a while. This example takes about 25 seconds on a desktop Mac (8GB RAM, 4ghz Intel i7).
 
 ## Summarize fitted model
 
