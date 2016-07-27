@@ -172,12 +172,10 @@ Users can investigate person-specific effects by modifying the input to the func
 
 It is also possible to investigate person-specific parameters. These exist with the same name as the average-level parameters, but have "u_" appended to them. 
 
-```{r, fig.width = 4, fig.height = 5, fig.cap = "Participant-specific c' path values with 75% Credible Intervals."}
+```{r, fig.width = 4, fig.height = 5, fig.cap = "Participant-specific c' path values with 80% Credible Intervals."}
 library(ggplot2)
 head(mlm_summary(fit, pars = "u_c"))
-mlm_pars_plot(fit, pars = "u_cp", type = "coef", level = .75) + 
-    theme(axis.text.y = element_blank(),
-          axis.ticks.y = element_blank())
+mlm_pars_plot(fit, pars = "u_cp", type = "coef", level = .8)
 ```
 
 Path diagrams can also be plotted for specific individuals:
